@@ -9,6 +9,9 @@ eagerLoadControllersFrom("controllers", application)
 import SortableController from "./sortable_controller"
 application.register("sortable", SortableController)
 
+import ToggleController from "./toggle_controller"
+application.register("toggle", ToggleController)
+
 // Lazy load controllers as they appear in the DOM (remember not to preload controllers in import map!)
 // import { lazyLoadControllersFrom } from "@hotwired/stimulus-loading"
 // lazyLoadControllersFrom("controllers", application)
