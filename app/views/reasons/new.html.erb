@@ -1,0 +1,17 @@
+<%= turbo_frame_tag "reason_modal" do %>
+  <div aria-labelledby="modal-title" aria-modal="true" class="fixed inset-0 z-50 overflow-y-auto bg-dark-gray flex items-center justify-center p-4" role="dialog">
+    <div class="bg-white rounded-lg shadow-xl max-w-2xl w-full">
+      <div class="border-b px-4 py-2 flex justify-between items-center">
+        <h3 class="text-lg font-semibold text-gray-900">New Return Reason</h3>
+        <%= link_to storefronts_path(id: 1), class: "text-gray-400 hover:text-gray-500" do %>
+          <span class="sr-only">Close</span>
+          &times;
+        <% end %>
+      </div>
+
+      <div class="p-4">
+        <%= render "form", reason: @reason %>
+      </div>
+    </div>
+  </div>
+<% end %>

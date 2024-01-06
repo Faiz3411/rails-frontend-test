@@ -9,7 +9,15 @@
       </div>
      
       <div class="bg-box-gray border border-line-gray w-1/2 rounded-lg divide-y divide-line-gray">
-        
+        <%= link_to new_reason_path(storefront_id: @storefront.id), class: "flex items-center justify-start py-3 px-4 rounded-t-lg bg-box-gray w-full", data: { turbo_frame: "reason_modal" } do %>
+          <span class="inline-block mr-7.5">
+            <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" >
+              <path fill="#3164f6" fill-rule="evenodd" d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10ZM11 8a1 1 0 1 1 2 0v3h3a1 1 0 1 1 0 2h-3v3a1 1 0 1 1-2 0v-3H8a1 1 0 1 1 0-2h3V8Z" clip-rule="evenodd"></path>
+            </svg>
+          </span>
+          <span class="text-blue-600 font-medium">Add Return Reason</span>
+        <% end %>
+        <%= turbo_frame_tag 'reason_modal' %>
         <div id="reasons">
           <%= render 'reasons/reasons_list', reasons: @reasons, storefront: @storefront %>
         </div>

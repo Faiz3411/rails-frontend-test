@@ -1,0 +1,55 @@
+<%= form_with(model: reason, id: dom_id(reason, "form")) do |form| %>
+  <% if reason.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(reason.errors.count, "error") %> prohibited this post from being saved:</h2>
+      <ul>
+        <% reason.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= hidden_field_tag :storefront_id, @storefront.id %>
+
+  <div class="mb-4">
+    <%= form.label :label, "Displayed reason", class: "block text-base font-semibold text-dark-gray" %>
+    <%= form.text_field :label, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50" %>
+    <p class="text-sm text-gray-700">Provide a friendly description for the reason that will be displayed to the customer.</p>
+  </div>
+  
+
+  <div class="mb-4">
+    <%= form.label :code, "Internal return code", class: "block text-base font-semibold text-dark-gray" %>
+    <%= form.text_field :code, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50" %>
+    <p class="text-sm text-gray-700">For internal use only. Must be unique. To aid in analytics, we do not recommend changing the code once set.</p>
+  </div>
+
+  <div class="mb-4">
+    <div data-controller="toggle" class="flex items-center">
+      <%= form.hidden_field :active, value: reason.active.to_s, data: { toggle_target: "field" } %>
+      <span class="cursor-pointer mr-2" data-action="click->toggle#change" data-toggle-target="icon">
+        <!-- Eye SVG when active is true -->
+        <%= content_tag :svg, class: "h-5 w-5 #{'hidden' unless reason.active}", xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 96 96", fill: "currentColor", data: { toggle_target: "eye" } do %>
+          <path d="M48 12C16 12 0 48.166 0 48.166S16 84 48 84s48-36 48-36-16-36-48-36zm0 64C26.854 76 13.503 56.118 9.003 48.148 13.5 40.102 26.854 20 48 20c21.15 0 34.502 19.998 38.998 28C82.494 56.016 69.145 76 48 76zm0-44c-8.836 0-16 7.164-16 16 0 8.837 7.164 16 16 16 8.837 0 16-7.163 16-16 0-8.836-7.163-16-16-16zm0 24c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z" fill="#3164f6" class="color000000 svgShape"></path>
+        <% end %>
+        <!-- Eye Slash SVG when active is false -->
+        <%= content_tag :svg, class: "h-5 w-5 #{'hidden' if reason.active}", xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 24 24", fill: "currentColor", data: { toggle_target: "eyeSlash" } do %>
+          <g fill="none" fill-rule="evenodd" stroke="#d6d6d6" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="colorStroke000000 svgStroke"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24M1 1l22 22" class="color000000 svgShape"></path></g>
+        <% end %>
+      </span>
+      <div class="ml-2">
+        <span class="text-base font-semibold text-dark-gray">Return Reason is Hidden</span>
+        <p class="text-sm text-gray-700">When hidden, this return reason is not offered as an option to the customer. Click on the eye icon to make the return reason visible.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="<%= reason.persisted? ? 'justify-between' : 'justify-end' %> flex items-center space-x-2 mt-2">
+    <% if reason.persisted? %>
+    <%= link_to 'Delete', reason_path(reason), data: {turbo_method: :delete}, method: :delete, class: 'btn-danger' %>
+    <% end %>
+    <%= button_tag 'Continue', type: 'submit', class: 'btn-primary' %>
+  </div>
+
+<% end %>
+
