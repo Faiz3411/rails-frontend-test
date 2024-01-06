@@ -1,0 +1,7 @@
+<div data-controller="sortable" data-sortable-url-value="<%= update_reason_order_storefront_path(storefront) %>" id="reasons_list">
+  <% @reasons.each do |reason| %>
+    <%= turbo_frame_tag dom_id(reason) do %>
+      <%= render 'reasons/reason', reason: reason, storefront: storefront %>
+    <% end %>
+  <% end %>
+</div>

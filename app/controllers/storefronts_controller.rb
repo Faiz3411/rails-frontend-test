@@ -1,9 +1,9 @@
 class StorefrontsController < ApplicationController
-  before_action :set_storefront, only: %i[ show edit update destroy ]
+  before_action :set_storefront, only: %i[ index show edit update destroy ]
 
   # GET /storefronts or /storefronts.json
   def index
-    @storefronts = Storefront.all
+    @reasons = @storefront.reasons.ordered
   end
 
   # GET /storefronts/1 or /storefronts/1.json
