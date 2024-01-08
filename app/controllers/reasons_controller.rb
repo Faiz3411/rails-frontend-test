@@ -60,18 +60,18 @@ class ReasonsController < ApplicationController
     end
 
     head :ok
-  rescue => e
-    render json: { error: e.message }, status: :unprocessable_entity
+    rescue => e
+      render json: { error: e.message }, status: :unprocessable_entity
   end
   
   private
 
   def set_reason
-    @reason = Reason.find(params[:id])
+    @reason = Reason.find_by(id: params[:id])
   end
 
   def set_storefront
-    @storefront = Storefront.find(params[:storefront_id])
+    @storefront = Storefront.find_by(id: params[:storefront_id])
   end
 
   def reason_order_params
